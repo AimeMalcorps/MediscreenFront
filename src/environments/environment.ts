@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  patientServer: "http://localhost:4200/patient-server",
+  historyServer: "http://localhost:4200/patient-history",
+  assessmentsServer: "http://localhost:4200/patient-assessments",
 };
 
 /*
