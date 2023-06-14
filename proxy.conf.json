@@ -1,0 +1,29 @@
+{
+    "/patient-server/*": {
+        "target": "http://localhost:8080",
+        "secure": false,
+        "pathRewrite": {
+            "^/patient-server": ""
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/patient-history/*": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "pathRewrite": {
+            "^/patient-history": ""
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/patient-assessments/*": {
+        "target": "http://localhost:8084",
+        "secure": false,
+        "pathRewrite": {
+            "^/patient-assessments": ""
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

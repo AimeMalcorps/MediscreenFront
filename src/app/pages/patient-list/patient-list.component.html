@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> MEDISCREEN DEMOGRAPHIC </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+</head>
+<h2 class="row justify-content-center">Patient List</h2>
+<div class="row mb-2">
+    <div class="col-md-1">
+        <a href="/" class="btn btn-secondary">Home</a>
+    </div>
+</div>
+<div *ngIf="this.patientToModify == null && patientToAssess == null" class="row justify-content-center">
+    <table class="col-md-10 table table-bordered text-center" style="width:80%;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Birth Date</th>
+                <th>Sex</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let patient of patientList;">
+                <td>{{patient.id}}</td>
+                <td>{{patient.familly}}</td>
+                <td>{{patient.given}}</td>
+                <td>{{patient.dob}}</td>
+                <td>{{patient.sex}}</td>
+                <td>{{patient.address}}</td>
+                <td>{{patient.phone}}</td>
+                <td style="width: 25%" class="text-center">
+                    <a (click)=getPatientAssessment(patient); class="btn btn-primary">Assessment</a>&nbsp;|&nbsp;
+                    <a (click)=getPatientNotes(patient); class="btn btn-success">Notes</a>&nbsp;|&nbsp;
+                    <a (click)=modifyPatientForm(patient); class="btn btn-warning">Edit</a>&nbsp;|&nbsp;
+                    <a (click)=deletePatient(patient) class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<form [formGroup]="patientForm" (ngSubmit)="editPatient(patientToModify)" *ngIf="this.patientToModify != null"
+    class="row justify-content-center">
+    <table class="col-md-10 table table-bordered text-center" style="width:80%;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Birth Date</th>
+                <th>Sex</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{patientToModify.id}}</td>
+                <td><input id="familly" type="text" placeholder="familly" formControlName="familly" required></td>
+                <td><input id="given" type="text" placeholder="given" formControlName="given" required></td>
+                <td><input id="dob" type="text" placeholder="dob" formControlName="dob" required></td>
+                <td><input id="sex" type="text" placeholder="sex" formControlName="sex" required></td>
+                <td><input id="address" type="text" placeholder="address" formControlName="address" required></td>
+                <td><input id="phone" type="text" placeholder="phone" formControlName="phone" required></td>
+                <td style="width: 15%" class="text-center">
+                    <button class="btn btn-success" type="submit" onclick="blur();">Modify Patient</button>&nbsp;|&nbsp;
+                    <a (click)="getAllPatient()" class="btn btn-warning">Back</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <span *ngIf=!formComplete class="col-md-10" style="color:red;">Incomplete fields</span>
+</form>
+
+<div *ngIf="patientToAssess != null" class="row justify-content-center">
+    <div class="card col-md-4">
+        <div class="card-body ">
+            <h4 class="card-title">Assessment : {{patientToAssess.familly}} {{patientToAssess.given}}</h4>
+            <h4 *ngIf="assessment != undefined" class="card-text">{{assessment}}</h4>
+            <h4 *ngIf="assessment == undefined" class="card-text">Error when creating assessment</h4>
+            <a (click)="patientToAssess = null" class="btn btn-warning" style="margin-left: 80%;">Back</a>
+          </div>
+    </div>
+</div>
+
+
+</html>
