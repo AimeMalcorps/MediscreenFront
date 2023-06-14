@@ -14,14 +14,25 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Docker
+1. Build image
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+docker image build -t mediscreenFront .
+```
 
-## Running end-to-end tests
+2. Run container
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+docker container run --name mediscreenFront -p 8086:80 -d mediscreenFront
+```
 
-## Further help
+3. Access the app
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+http://localhost:8086
+```
+
+## Author
+
+Aimé Malcorps
