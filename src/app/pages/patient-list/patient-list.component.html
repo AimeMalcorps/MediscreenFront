@@ -8,10 +8,10 @@
 <h2 class="row justify-content-center">Patient List</h2>
 <div class="row mb-2">
     <div class="col-md-1">
-        <a href="/" class="btn btn-secondary">Home</a>
+        <a href="/" class="btn btn-warning">Home</a>
     </div>
 </div>
-<div *ngIf="this.patientToModify == null && patientToAssess == null" class="row justify-content-center">
+<div *ngIf="this.patientToModify == null && !assessmentView" class="row justify-content-center">
     <table class="col-md-10 table table-bordered text-center" style="width:80%;">
         <thead>
             <tr>
@@ -78,13 +78,13 @@
     <span *ngIf=!formComplete class="col-md-10" style="color:red;">Incomplete fields</span>
 </form>
 
-<div *ngIf="patientToAssess != null" class="row justify-content-center">
+<div *ngIf="assessmentView" class="row justify-content-center">
     <div class="card col-md-4">
         <div class="card-body ">
-            <h4 class="card-title">Assessment : {{patientToAssess.familly}} {{patientToAssess.given}}</h4>
-            <h4 *ngIf="assessment != undefined" class="card-text">{{assessment}}</h4>
+            <h4 class="card-title">Assessment for : {{this.assessment.patientInfo}}</h4>
+                <h4 *ngIf="assessment != undefined" class="card-text">Diabetes assessment is : {{this.assessment.result}}</h4>
             <h4 *ngIf="assessment == undefined" class="card-text">Error when creating assessment</h4>
-            <a (click)="patientToAssess = null" class="btn btn-warning" style="margin-left: 80%;">Back</a>
+            <a (click)="assessmentView = false" class="btn btn-warning" style="margin-left: 80%;">Back</a>
           </div>
     </div>
 </div>

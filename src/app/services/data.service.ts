@@ -5,7 +5,7 @@ import { Patient } from '../models/patient';
   providedIn: 'root'
 })
 export class DataService {
-  patientName: string;
+  patientFind: Patient;
   patientId: number;
   patient: any;
 }

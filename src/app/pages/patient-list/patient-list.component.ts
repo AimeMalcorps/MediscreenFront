@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Assessment } from 'src/app/models/assessment';
 import { Patient } from 'src/app/models/patient';
 import { DataService } from 'src/app/services/data.service';
 import { environment } from 'src/environments/environment';
@@ -16,10 +17,10 @@ export class PatientListComponent implements OnInit, OnDestroy {
   patientForm: FormGroup;
   patientToModify: any;
   patientToNotes: any = null;
-  patientToAssess: any = null;
-  assessment: string;
+  assessment: Assessment;
   formComplete: boolean = true;
-  patientToSearch: string = '';
+  patientToSearch: Patient;
+  assessmentView: boolean = false;
 
   constructor(private http: HttpClient,
     private router: Router,
@@ -27,9 +28,9 @@ export class PatientListComponent implements OnInit, OnDestroy {
     public dataservice: DataService) { }
 
   ngOnInit(): void {
-    this.patientToSearch = this.dataservice.patientName;
-    if (this.patientToSearch != '') {
-      this.serachPatient(this.patientToSearch);
+    this.patientToSearch = this.dataservice.patientFind;
+    if (this.patientToSearch != null) {
+      this.patientList[0] = this.patientToSearch;
     } else {
       this.getAllPatient();
     }
@@ -68,8 +69,8 @@ export class PatientListComponent implements OnInit, OnDestroy {
         .subscribe(res => {
           if (res != null) {
             this.patientToModify = null;
-            if (this.patientToSearch != '')
-            this.serachPatient(this.patientToSearch);
+            if (this.patientToSearch != null)
+            this.serachPatient(this.patientToSearch.familly);
           } else {
             this.getAllPatient();
           }
@@ -118,12 +119,12 @@ export class PatientListComponent implements OnInit, OnDestroy {
   }
 
   getPatientAssessment(patient: Patient) {
-    this.patientToAssess = patient;
-    this.http.post<any>(environment.assessmentsServer + '/assassment/patient/', patient)
+    this.http.post<any>(environment.assessmentsServer + '/assessment/patient/', patient)
       .subscribe(res => {
         if (res != null) {
-          this.assessment = res.assessment;
+          this.assessment = res;
           console.log(this.assessment);
+          this.assessmentView = true;
         } else {
           console.log('Error - getPatientAssessment');
         }

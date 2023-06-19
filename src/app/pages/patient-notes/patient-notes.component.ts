@@ -90,7 +90,12 @@ export class PatientNotesComponent implements OnInit {
     this.http.get<any>(environment.historyServer + '/patHistory/delete/' + note.id)
       .subscribe(res => {
         if (res) {
-          this.getPatientNotes(this.patient.id);
+          if (this.patient != null) {
+            this.getPatientNotes(this.patient.id);
+          } else {
+            this.getAllNotes();
+          }
+          
         } else {
           console.log('Error - deletePatientNote');
         }

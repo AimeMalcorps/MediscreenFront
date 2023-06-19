@@ -11,7 +11,8 @@
 </div>
 <div class="row">
     <div class="col-md-1">
-        <a (click)="navigate('patientList')" class="btn btn-warning">Back</a>
+        <a *ngIf="patient != null" (click)="navigate('patientList')" class="btn btn-warning">Back</a>
+        <a *ngIf="patient == null" (click)="navigate('home')" class="btn btn-warning">Back</a>
     </div>
 </div>
 <div *ngIf="patient != null" class="row justify-content-center">
