@@ -24,13 +24,13 @@ docker image build -t mediscreenFront .
 2. Run container
 
 ```bash
-docker container run --name mediscreenFront -p 8086:80 -d mediscreenFront
+docker container run --name mediscreenFront -p 4200:4200 -d mediscreenFront
 ```
 
 3. Access the app
 
 ```bash
-http://localhost:8086
+http://localhost:4200
 ```
 
 ## Author
